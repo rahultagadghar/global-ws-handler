@@ -1,0 +1,10 @@
+.vscode
+client
+dist
+node_modules
+.dockerignore
+docker-compose.debug.yml
+Dockerfile
+nginx.conf
+test.ts
+test.pem

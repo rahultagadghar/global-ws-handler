@@ -1,0 +1,22 @@
+{
+  "name": "global-ws-handler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "startd": "node dist/server.js",
+    "client": "ts-node client-test.ts",
+    "start": "node dist/client/client-test.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ws": "^7.4.3"
+  },
+  "devDependencies": {
+    "express": "^4.17.1",
+    "@types/ws": "^7.4.0",
+    "typescript": "^4.1.5",
+    "ts-node": "^9.1.1"
+  }
+}

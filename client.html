@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>WebSocket client!</h1>
+  </body>
+  <script>
+    const { log } = console;
+    class WS extends WebSocket {
+      holdCallback = {};
+      constructor(parameters) {
+        super(parameters);
+        this.onmessage = (message) => {
+          message = JSON.parse(message.data);
+          this.holdCallback[message.channel](message);
+        };
+      }
+      sendMessage(channel, message) {
+        this.send(
+          JSON.stringify({
+            channel,
+            data: message,
+          })
+        );
+      }
+      listen(channel, callback) {
+        this.holdCallback[channel] = callback;
+      }
+    }
+    const ws = new WS("ws://localhost:8080");
+
+    ws.onopen = function (event) {
+      console.log("WebSocket is open now.");
+      ws.sendMessage("initial", "cool bro");
+    };
+    ws.onclose = function (event) {
+      console.log("WebSocket is closed now.");
+    };
+    ws.onerror = function (event) {
+      console.error("WebSocket error observed:", event);
+    };
+    ws.listen("check", (d) => {
+      log("awesome", d);
+    });
+  </script>
+</html>
